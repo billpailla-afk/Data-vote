@@ -376,6 +376,9 @@ function launchApp() {
   document.getElementById('user-name-badge').textContent=myName;
   document.getElementById('share-url-text').textContent=window.location.href.split('?')[0]+'?session='+encodeURIComponent(sessionCode);
   document.getElementById('new-author').value=myName;
+  // Initialise les deux vues correctement
+  document.getElementById('normal-view').style.display='';
+  document.getElementById('presenter-view').style.display='none';
   if(isDemo){ renderAll(); updateStats(); }
 }
 
@@ -551,8 +554,9 @@ function updateStats() {
 function switchView(mode,btn) {
   document.querySelectorAll('.view-toggle button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('normal-view').style.display=mode==='normal'?'':'none';
-  document.getElementById('presenter-view').style.display=mode==='presenter'?'':'none';
+  document.getElementById('normal-view').style.display = mode==='normal' ? 'block' : 'none';
+  document.getElementById('presenter-view').style.display = mode==='presenter' ? 'block' : 'none';
+  if(mode==='presenter') { renderPresenter(); }
 }
 
 // ── UTILS ─────────────────────────────────────────
